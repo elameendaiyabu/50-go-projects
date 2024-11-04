@@ -56,7 +56,7 @@ func HostInformation(h host.InfoStat) HostInfo {
 			name string
 			val  string
 		}{
-			name: "Host Name",
+			name: "HostName",
 			val:  h.Hostname,
 		},
 		Os: struct {

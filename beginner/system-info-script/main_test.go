@@ -3,6 +3,7 @@ package main
 import (
 	"testing"
 
+	"github.com/shirou/gopsutil/v4/host"
 	"github.com/shirou/gopsutil/v4/mem"
 )
 
@@ -37,6 +38,43 @@ func TestMemoryInfo(t *testing.T) {
 			name string
 			val  int
 		}{name: "Used Percentage", val: int(m.UsedPercent)},
+	}
+
+	if got != want {
+		t.Errorf("got %v but want %v", got, want)
+	}
+}
+
+func TestHostInformation(t *testing.T) {
+	h := &host.InfoStat{
+		Hostname: "bloodhound",
+		OS:       "linux",
+		Platform: "arch",
+	}
+
+	got := HostInformation(*h)
+	want := HostInfo{
+		HostName: struct {
+			name string
+			val  string
+		}{
+			name: "HostName",
+			val:  h.Hostname,
+		},
+		Os: struct {
+			name string
+			val  string
+		}{
+			name: "OS",
+			val:  h.OS,
+		},
+		Platform: struct {
+			name string
+			val  string
+		}{
+			name: "Platform",
+			val:  h.Platform,
+		},
 	}
 
 	if got != want {
