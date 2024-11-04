@@ -3,6 +3,7 @@ package main
 import (
 	"testing"
 
+	"github.com/shirou/gopsutil/v4/cpu"
 	"github.com/shirou/gopsutil/v4/host"
 	"github.com/shirou/gopsutil/v4/mem"
 )
@@ -77,6 +78,50 @@ func TestHostInformation(t *testing.T) {
 		},
 	}
 
+	if got != want {
+		t.Errorf("got %v but want %v", got, want)
+	}
+}
+
+func TestCpuInformation(t *testing.T) {
+	c := cpu.InfoStat{
+		ModelName: "AMD Ryzen 9 5900HS with Radeon Graphics",
+		Mhz:       4680,
+		CacheSize: 512,
+	}
+	numOfCores := 16
+
+	got := CpuInformation(c, numOfCores)
+	want := CpuInfo{
+		ModelName: struct {
+			name string
+			val  string
+		}{
+			name: "Model Name",
+			val:  c.ModelName,
+		},
+		CacheSize: struct {
+			name string
+			val  int
+		}{
+			name: "Cache Size",
+			val:  int(c.CacheSize),
+		},
+		ProcessorSpeed: struct {
+			name string
+			val  int
+		}{
+			name: "Processor Speed",
+			val:  int(c.Mhz),
+		},
+		NumberOfCores: struct {
+			name string
+			val  int
+		}{
+			name: "Number of CPU Cores",
+			val:  numOfCores,
+		},
+	}
 	if got != want {
 		t.Errorf("got %v but want %v", got, want)
 	}
