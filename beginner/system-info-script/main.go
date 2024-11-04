@@ -18,12 +18,7 @@ type MemInfo struct {
 	}
 }
 
-func MemoryInfo() MemInfo {
-	m, err := mem.VirtualMemory()
-	if err != nil {
-		log.Println(err)
-	}
-
+func MemoryInfo(m mem.VirtualMemoryStat) MemInfo {
 	var memInfo MemInfo = MemInfo{
 		Total: struct {
 			name string
@@ -51,7 +46,12 @@ func MemoryInfo() MemInfo {
 }
 
 func main() {
-	memoryInfo := MemoryInfo()
+	// get memory info
+	m, err := mem.VirtualMemory()
+	if err != nil {
+		log.Println(err)
+	}
+	memoryInfo := MemoryInfo(*m)
 	fmt.Printf("%s: %d GiB\n", memoryInfo.Total.name, memoryInfo.Total.val)
 	fmt.Printf("%s: %d GiB\n", memoryInfo.Available.name, memoryInfo.Available.val)
 	fmt.Printf("%s: %d GiB\n", memoryInfo.Used.name, memoryInfo.Used.val)
