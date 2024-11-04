@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"strings"
 
 	"github.com/shirou/gopsutil/v4/cpu"
 	"github.com/shirou/gopsutil/v4/host"
@@ -131,6 +132,7 @@ func main() {
 		log.Println(err)
 	}
 	memoryInfo := MemoryInfo(*m)
+	fmt.Println(strings.ToUpper("Memory Information:"))
 	fmt.Printf("%s: %d GiB\n", memoryInfo.Total.name, memoryInfo.Total.val)
 	fmt.Printf("%s: %d GiB\n", memoryInfo.Available.name, memoryInfo.Available.val)
 	fmt.Printf("%s: %d GiB\n", memoryInfo.Used.name, memoryInfo.Used.val)
@@ -143,6 +145,7 @@ func main() {
 		log.Println(err)
 	}
 	hostInfo := HostInformation(*h)
+	fmt.Println(strings.ToUpper("Host Information:"))
 	fmt.Printf("%s: %s \n", hostInfo.HostName.name, hostInfo.HostName.val)
 	fmt.Printf("%s: %s \n", hostInfo.Os.name, hostInfo.Os.val)
 	fmt.Printf("%s: %s \n\n", hostInfo.Platform.name, hostInfo.Platform.val)
@@ -153,6 +156,7 @@ func main() {
 		log.Println(err)
 	}
 	cpuInfo := CpuInformation(c[0], len(c))
+	fmt.Println(strings.ToUpper("CPU Information:"))
 	fmt.Printf("%s: %s \n", cpuInfo.ModelName.name, cpuInfo.ModelName.val)
 	fmt.Printf("%s: %d \n", cpuInfo.CacheSize.name, cpuInfo.CacheSize.val)
 	fmt.Printf("%s: %d \n", cpuInfo.ProcessorSpeed.name, cpuInfo.ProcessorSpeed.val)
