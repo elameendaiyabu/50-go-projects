@@ -1,0 +1,17 @@
+Nov 05 08:45:33 bloodhound kernel: ACPI BIOS Error (bug): Failure creating named object [\_SB.PCI0.GP17.XHC0._S0W], AE_ALREADY_EXISTS (20240322/dswload2-326)
+Nov 05 08:45:33 bloodhound kernel: ACPI Error: AE_ALREADY_EXISTS, During name lookup/catalog (20240322/psobject-220)
+Nov 05 08:45:33 bloodhound kernel: ACPI BIOS Error (bug): Failure creating named object [\_SB.PCI0.GP17.XHC1._S0W], AE_ALREADY_EXISTS (20240322/dswload2-326)
+Nov 05 08:45:33 bloodhound kernel: ACPI Error: AE_ALREADY_EXISTS, During name lookup/catalog (20240322/psobject-220)
+Nov 05 08:45:33 bloodhound kernel: 
+Nov 05 08:45:33 bloodhound kernel: asus 0003:0B05:19B6.0004: Asus input not registered
+Nov 05 08:45:33 bloodhound kernel: asus 0003:0B05:19B6.0004: probe with driver asus failed with error -12
+Nov 05 08:46:04 bloodhound dhcpcd[1287]: timed out
+Nov 05 08:46:04 bloodhound systemd[1]: Failed to start DHCP/ IPv4LL/ IPv6RA/ DHCPv6 client on enp3s0.
+Nov 05 08:46:08 bloodhound dbus-broker-launch[1805]: Ignoring duplicate name 'org.freedesktop.FileManager1' in service file '/usr/share//dbus-1/services/org.kde.dolphin.FileManager1.service'
+Nov 05 08:46:22 bloodhound gdm-password][2229]: gkr-pam: unable to locate daemon control file
+Nov 05 08:46:22 bloodhound dbus-broker-launch[2259]: Ignoring duplicate name 'org.freedesktop.FileManager1' in service file '/usr/share//dbus-1/services/org.kde.dolphin.FileManager1.service'
+Nov 05 08:46:23 bloodhound gdm[1484]: Gdm: on_display_added: assertion 'GDM_IS_REMOTE_DISPLAY (display)' failed
+Nov 05 08:46:37 bloodhound gdm[1484]: Gdm: on_display_removed: assertion 'GDM_IS_REMOTE_DISPLAY (display)' failed
+Nov 05 08:47:23 bloodhound kernel: [drm:drm_new_set_master] *ERROR* [nvidia-drm] [GPU ID 0x00000100] Failed to grab modeset ownership
+Nov 05 08:47:28 bloodhound kernel: [drm:drm_new_set_master] *ERROR* [nvidia-drm] [GPU ID 0x00000100] Failed to grab modeset ownership
+Nov 05 08:47:35 bloodhound kernel: [drm:drm_new_set_master] *ERROR* [nvidia-drm] [GPU ID 0x00000100] Failed to grab modeset ownership
