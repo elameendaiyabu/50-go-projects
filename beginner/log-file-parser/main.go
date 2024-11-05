@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"os/exec"
 	"regexp"
 	"strings"
 )
@@ -42,7 +43,20 @@ func ParseLogFileLines(re *regexp.Regexp, fileLines []string) {
 	}
 }
 
+func GenerateLogFile() {
+	// Run the command within a shell to enable redirection
+	cmd := exec.Command("bash", "-c", "journalctl -p err -b > log.txt")
+	output, err := cmd.CombinedOutput()
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+	fmt.Println("Log file generated.")
+	fmt.Println(string(output)) // Outputs any messages from the command, if needed
+}
+
 func main() {
+	GenerateLogFile()
 	logFormat := `(?P<month>\w+) (?P<day>\d{2}) (?P<time>\d{2}:\d{2}:\d{2}) (?P<hostname>\S+) (?P<service>\S+):(?: \[(?P<component>[^\]]*)\])?(?: \*(?P<log_level>[^\*]+)\*)?(?: \[(?P<driver>[^\]]+)\])?(?: \[(?P<gpu_id>[^\]]+)\])? (?P<message>.+)`
 	re := regexp.MustCompile(logFormat)
 
