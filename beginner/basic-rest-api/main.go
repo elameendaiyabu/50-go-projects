@@ -9,13 +9,32 @@ import (
 )
 
 type Car struct {
-	Name  string `json:"name"`
-	Model string `json:"model"`
-	Year  int    `json:"year"`
+	Name  string
+	Model string
+	Year  int
 }
 
+var Cars []Car
+
 func GetAllCars(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "hey")
+	cars := []Car{
+		{
+			Name:  "honda",
+			Model: "civic",
+			Year:  2024,
+		},
+		{
+			Name:  "toyota",
+			Model: "corolla",
+			Year:  2022,
+		},
+	}
+
+	for idx, car := range cars {
+		Cars = append(Cars, car)
+		fmt.Fprintf(w, "CAR %d: ", idx)
+		fmt.Fprintf(w, "%s %s %d\n\n", car.Name, car.Model, car.Year)
+	}
 }
 
 func CreateCar(w http.ResponseWriter, r *http.Request) {
