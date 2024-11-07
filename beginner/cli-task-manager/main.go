@@ -1,12 +1,27 @@
 package main
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+	"io"
+	"os"
+	"sort"
+)
 
 type Tasks map[int]string
 
-func (t Tasks) GetTasks() {
-	for idx, task := range t {
-		fmt.Printf("%d. %s\n", idx, task)
+func (t Tasks) GetTasks(w io.Writer) {
+	ids := make([]int, 1, len(t))
+	for idx := range t {
+		ids = append(ids, idx)
+	}
+
+	sort.Ints(ids)
+	for id := range ids {
+		if id == 0 {
+			continue
+		}
+		fmt.Fprintf(w, "%d. %s\n", id, t[id])
 	}
 }
 
@@ -19,12 +34,22 @@ func (t Tasks) Add(task string) {
 	t[len(t)+1] = task
 }
 
-func (t Tasks) Update(id int, newTask string) {
-	t[id] = newTask
+func (t Tasks) Update(id int, newTask string) error {
+	isAvail := t.Search(id)
+	if isAvail {
+		t[id] = newTask
+		return nil
+	}
+	return errors.New("couldnt update,task doesnt exist")
 }
 
-func (t Tasks) Delete(id int) {
-	delete(t, id)
+func (t Tasks) Delete(id int) error {
+	isAvail := t.Search(id)
+	if isAvail {
+		delete(t, id)
+		return nil
+	}
+	return errors.New("couldnt delete,task doesnt exist")
 }
 
 func main() {
@@ -34,5 +59,5 @@ func main() {
 	tasks.Add("clean")
 	tasks.Add("draw")
 
-	tasks.GetTasks()
+	tasks.GetTasks(os.Stdout)
 }
