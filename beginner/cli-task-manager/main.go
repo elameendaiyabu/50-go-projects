@@ -10,6 +10,11 @@ func (t Tasks) GetTasks() {
 	}
 }
 
+func (t Tasks) Search(id int) bool {
+	_, found := t[id]
+	return found
+}
+
 func (t Tasks) Add(task string) {
 	t[len(t)+1] = task
 }
