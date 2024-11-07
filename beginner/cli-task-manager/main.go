@@ -1,9 +1,11 @@
 package main
 
 import (
+	"bufio"
 	"errors"
 	"fmt"
 	"io"
+	"log"
 	"os"
 	"sort"
 )
@@ -11,6 +13,9 @@ import (
 type Tasks map[int]string
 
 func (t Tasks) GetTasks(w io.Writer) {
+	if len(t) < 1 {
+		return
+	}
 	ids := make([]int, 1, len(t))
 	for idx := range t {
 		ids = append(ids, idx)
@@ -55,9 +60,30 @@ func (t Tasks) Delete(id int) error {
 func main() {
 	var tasks Tasks
 	tasks = make(map[int]string)
-	tasks.Add("watch")
-	tasks.Add("clean")
-	tasks.Add("draw")
 
-	tasks.GetTasks(os.Stdout)
+	for {
+		tasks.GetTasks(os.Stdout)
+
+		fmt.Println("enter a command")
+		var cmd string
+		fmt.Scanln(&cmd)
+
+		if cmd == "q" {
+			os.Exit(1)
+		}
+		if cmd == "add" || cmd == "a" {
+			fmt.Println("Enter a new task")
+			reader := bufio.NewReader(os.Stdin)
+			task, err := reader.ReadString('\n')
+			handleErr(err)
+			tasks.Add(task)
+		}
+
+	}
+}
+
+func handleErr(err error) {
+	if err != nil {
+		log.Println(err)
+	}
 }
