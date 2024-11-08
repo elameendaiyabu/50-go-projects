@@ -63,26 +63,22 @@ func main() {
 	tasks = make(map[int]string)
 
 	for {
-		fmt.Print("\033[H\033[2J")
 		tasks.GetTasks(os.Stdout)
 
 		fmt.Println("enter a command")
 		var cmd string
 		fmt.Scanln(&cmd)
 
-		if cmd == "q" {
+		switch cmd {
+		case "q":
 			os.Exit(1)
-		}
-
-		if cmd == "add" || cmd == "a" {
+		case "add", "a":
 			fmt.Println("Enter a new task")
 			reader := bufio.NewReader(os.Stdin)
 			task, err := reader.ReadString('\n')
 			handleErr(err)
 			tasks.Add(task)
-		}
-
-		if cmd == "delete" || cmd == "d" {
+		case "delete", "d":
 			fmt.Println("enter task id to delete")
 			scanner := bufio.NewScanner(os.Stdin)
 			scanner.Scan()
@@ -90,9 +86,7 @@ func main() {
 			handleErr(err)
 			taskId, _ := strconv.Atoi(scanner.Text())
 			tasks.Delete(int(taskId))
-		}
-
-		if cmd == "update" || cmd == "u" {
+		case "update", "u":
 			fmt.Println("enter task id to update")
 			id := bufio.NewScanner(os.Stdin)
 			id.Scan()
@@ -105,6 +99,8 @@ func main() {
 			err = task.Err()
 			handleErr(err)
 			tasks.Update(int(taskId), task.Text())
+		default:
+			fmt.Println("invalid command")
 		}
 
 	}
