@@ -8,6 +8,7 @@ import (
 	"log"
 	"os"
 	"sort"
+	"strconv"
 )
 
 type Tasks map[int]string
@@ -22,11 +23,11 @@ func (t Tasks) GetTasks(w io.Writer) {
 	}
 
 	sort.Ints(ids)
-	for id := range ids {
+	for id, key := range ids {
 		if id == 0 {
 			continue
 		}
-		fmt.Fprintf(w, "%d. %s\n", id, t[id])
+		fmt.Fprintf(w, "%d. %s\n", key, t[key])
 	}
 }
 
@@ -48,10 +49,10 @@ func (t Tasks) Update(id int, newTask string) error {
 	return errors.New("couldnt update,task doesnt exist")
 }
 
-func (t Tasks) Delete(id int) error {
+func (t *Tasks) Delete(id int) error {
 	isAvail := t.Search(id)
 	if isAvail {
-		delete(t, id)
+		delete(*t, id)
 		return nil
 	}
 	return errors.New("couldnt delete,task doesnt exist")
@@ -62,6 +63,7 @@ func main() {
 	tasks = make(map[int]string)
 
 	for {
+		fmt.Print("\033[H\033[2J")
 		tasks.GetTasks(os.Stdout)
 
 		fmt.Println("enter a command")
@@ -77,6 +79,15 @@ func main() {
 			task, err := reader.ReadString('\n')
 			handleErr(err)
 			tasks.Add(task)
+		}
+		if cmd == "delete" || cmd == "d" {
+			fmt.Println("enter task id to delete")
+			scanner := bufio.NewScanner(os.Stdin)
+			scanner.Scan()
+			err := scanner.Err()
+			handleErr(err)
+			taskId, _ := strconv.Atoi(scanner.Text())
+			tasks.Delete(int(taskId))
 		}
 
 	}

@@ -46,14 +46,21 @@ func TestUpdate(t *testing.T) {
 }
 
 func TestDelete(t *testing.T) {
+	buffer := bytes.Buffer{}
 	tasks := Tasks{}
 	tasks.Add("sleep")
 	tasks.Add("watch")
+	tasks.Add("eat")
+	tasks.Add("play")
 
-	got := tasks.Delete(2)
-	if got != nil {
-		t.Error(got)
-	}
+	tasks.Delete(3)
+	tasks.Delete(1)
+	tasks.GetTasks(&buffer)
+	got := buffer.String()
+	want := `2. watch
+4. play
+`
+	assertStrings(t, got, want)
 }
 
 func TestGetTasks(t *testing.T) {
