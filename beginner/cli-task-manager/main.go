@@ -73,6 +73,7 @@ func main() {
 		if cmd == "q" {
 			os.Exit(1)
 		}
+
 		if cmd == "add" || cmd == "a" {
 			fmt.Println("Enter a new task")
 			reader := bufio.NewReader(os.Stdin)
@@ -80,6 +81,7 @@ func main() {
 			handleErr(err)
 			tasks.Add(task)
 		}
+
 		if cmd == "delete" || cmd == "d" {
 			fmt.Println("enter task id to delete")
 			scanner := bufio.NewScanner(os.Stdin)
@@ -88,6 +90,21 @@ func main() {
 			handleErr(err)
 			taskId, _ := strconv.Atoi(scanner.Text())
 			tasks.Delete(int(taskId))
+		}
+
+		if cmd == "update" || cmd == "u" {
+			fmt.Println("enter task id to update")
+			id := bufio.NewScanner(os.Stdin)
+			id.Scan()
+			err := id.Err()
+			handleErr(err)
+			taskId, _ := strconv.Atoi(id.Text())
+			fmt.Println("enter new task to update")
+			task := bufio.NewScanner(os.Stdin)
+			task.Scan()
+			err = task.Err()
+			handleErr(err)
+			tasks.Update(int(taskId), task.Text())
 		}
 
 	}
