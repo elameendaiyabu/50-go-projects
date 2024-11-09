@@ -2,7 +2,10 @@ module go-projects
 
 go 1.23.0
 
-require github.com/shirou/gopsutil/v4 v4.24.10
+require (
+	github.com/radovskyb/watcher v1.0.7
+	github.com/shirou/gopsutil/v4 v4.24.10
+)
 
 require (
 	github.com/ebitengine/purego v0.8.1 // indirect
