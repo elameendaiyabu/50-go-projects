@@ -3,6 +3,7 @@ package server
 import (
 	"fmt"
 	"go-projects/beginner/reverse-proxy/internal/configs"
+	"log"
 	"net/http"
 	"net/url"
 )
@@ -12,7 +13,7 @@ func Run() error {
 	// load configurations from config file
 	config, err := configs.NewConfiguration()
 	if err != nil {
-		fmt.Errorf("could not load configuration: %v", err)
+		log.Fatal(err)
 	}
 	// Creates a new router
 	mux := http.NewServeMux()
