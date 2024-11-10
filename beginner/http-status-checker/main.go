@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"strings"
 
 	"github.com/spf13/viper"
 )
@@ -24,8 +23,6 @@ func getURLs() *endpoints {
 	viper.AddConfigPath(".")
 	viper.SetConfigName("urls")
 	viper.SetConfigType("yaml")
-	viper.AutomaticEnv()
-	viper.SetEnvKeyReplacer(strings.NewReplacer(`.`, `_`))
 	if err := viper.ReadInConfig(); err != nil {
 		log.Fatal(err)
 	}
