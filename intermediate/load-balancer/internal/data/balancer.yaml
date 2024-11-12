@@ -1,0 +1,13 @@
+endpoint:
+  host: "localhost"
+  port: 8080
+
+resources:
+  - id: "1"
+    server: "http://localhost:9001"
+  - id: "2"
+    server: "http://localhost:9002"
+  - id: "3"
+    server: "http://localhost:9003"
+  - id: "4"
+    server: "http://localhost:9004"
