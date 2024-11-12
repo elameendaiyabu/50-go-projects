@@ -1,8 +1,8 @@
 package main
 
 import (
-	"fmt"
 	"go-projects/intermediate/load-balancer/internal/config"
+	"go-projects/intermediate/load-balancer/internal/server"
 )
 
 // NOTE: will have servers and an endpoint
@@ -11,5 +11,7 @@ import (
 // NOTE: STEPS: 2. create worker pools that assign servers ...
 
 func main() {
-	fmt.Println(config.ParseYAML())
+	config := config.ParseYAML()
+
+	server.Run(*config)
 }

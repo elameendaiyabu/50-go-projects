@@ -1,6 +1,6 @@
 endpoint:
   host: "localhost"
-  port: 8080
+  port: ":8080"
 
 resources:
   - id: "1"

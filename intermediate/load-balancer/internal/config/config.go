@@ -6,22 +6,22 @@ import (
 	"github.com/spf13/viper"
 )
 
-type resources struct {
+type Resources struct {
 	Id     string
 	Server string
 }
 
-type configuration struct {
+type Configuration struct {
 	Endpoint struct {
 		Host string
-		Port int
+		Port string
 	}
-	Resources []resources
+	Resources []Resources
 }
 
-var Config *configuration
+var Config *Configuration
 
-func ParseYAML() *configuration {
+func ParseYAML() *Configuration {
 	viper.AddConfigPath(
 		"/home/alamin/Development/50-go-projects/intermediate/load-balancer/internal/data/",
 	)
